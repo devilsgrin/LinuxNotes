@@ -1,0 +1,25 @@
+/etc/sudoers dosyasını editlerken eğer ki bir hata yaparsanız, "sudo" komutunu çalıştırırken
+bir hata ile karşılaşırsınız ve sorunu düzeltmeden hiç bir şekilde "sudo" komutunu çalıştıramazsınız.
+
+Dolayısıyla eğer ki bir hata yaparsanız aşağıdaki adımları izleyin: 
+
+Not: /etc/sudoers gibi dosyaları editlerken kesinlikle "visudo" yu kullanın. Klasik text editörlerinizi
+bu gibi durumlarda kullanmanız, güzel bir hatanın geleceğinin habercisidir.
+
+1-) Öncelikle "pkexec visudo" komutunu çalıştırın. Sizden root parolasını isteyecektir. Eğer ki doğru
+girerseniz dosya açılacaktır ve hatayı düzeltebilirsiniz. Lakin bazı durumlarda parolayı doğru girseniz
+dahi kabul etmeyebilir. Bu gibi durumlarda Aşağıdaki adımları izleyin.
+
+a-) Sunucunuzdan iki adet shell açın ya da alın.
+
+b-) İlk shell üzerinde "echo $$" komutunu çalıştırın. Bu size güncel PID değerinizi verecektir.
+
+c-) İkinci shell üzerine gelerek " pkttyagent --process {ilk shell'den aldığınız PID değeri} " komutunu çalıştırın.
+
+d-) İlk shell'e dönün ve "pkexec visudo" komutunu çalıştırın.
+
+e-) İkinci shell'e yeniden gelin ve sizden istenen parolayı girin. 
+
+f-) İlk shell'e geri dönün. Parolayı doğru girdiğiniz takdirde, dosyanın ilk shell üzerinden açıldığını göreceksiniz.
+
+Geçmiş olsun Türkiye !
