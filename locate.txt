@@ -1,0 +1,43 @@
+Linux sistemlerde locate komutuyla, istenilen bir dosyayı bulmak oldukça kolay ve hızlıdır.
+Burada neden hızlı ve kolay olduğunu yazacağım.
+
+Öncelikle şunu belirtelim; Linux sistemlerde dosyalarınız her bir gün arayla bir veritabanına kaydedilir.
+Bunu yapmak için çoğu Linux dağıtımı (Redhat, Fedora etc.) " updatebd " komutunu çalıştırır. Bu komut çalıştıktan
+sonra, yeni eklenen bütün dosyalarınız bir veritabanına kaydedilir, silinen dosyalarınız veritabanından silinir,
+değiştirilen dosyalarınız değiştirilir. Bunu çoğu linux sistemi günlük olarak yapmaktadır. İsterseniz manuel 
+olarak kendiniz de yapabilirsiniz.
+
+Sistem, bu dosyaları veritabanına kaydederken, /etc/updatedb.conf dosyasına bakar. Burada kaydedilecek yani
+işleme uğrayacak dosyaları ve dosya uzantılarını sınırlandırabilirsiniz. 
+Ubuntu dağıtımında bu dosyanın içeriği klasik olarak şöyledir: 
+
+" 
+PRUNE_BIND_MOUNTS="yes"
+# PRUNENAMES=".git .bzr .hg .svn"
+PRUNEPATHS="/tmp /var/spool /media /var/lib/os-prober /var/lib/ceph /home/.ecryptfs /var/lib/schroot"
+PRUNEFS="NFS afs autofs binfmt_misc ceph cgroup cgroup2 cifs coda configfs curlftpfs debugfs devfs devpts devtmpfs ecryptfs ftpfs fuse.ceph fuse.cryfs fuse.encfs fuse.glusterfs fuse.gvfsd-fuse fuse.mfs fuse.rozofs fuse.sshfs fusectl fusesmb hugetlbfs iso9660 lustre lustre_lite mfs mqueue ncpfs nfs nfs4 ocfs ocfs2 proc pstore rpc_pipefs securityfs shfs smbfs sysfs tmpfs tracefs udev udf usbfs"
+"
+
+PRUNENAMES = updatedb tarafından işleme sokulmayacak olan dosya uzantılarının adları buradadır. Mesela " .txt " uzantısını buraya eklerseniz, 
+updatedb komutu çalıştığında, veritabanına .txt uzantılı dosyalar kaydolmayacaktır.
+
+PRUNEPATHS = updatedb tarafından işleme sokulmayacak olan dizinlerin path yollarının adları buradadır. Mesela " /var " path yolunu buraya eklerseniz,
+/var altındaki hiç bir dosya ve klasör veritabanında işleme uğramayacaktır.
+
+PRUNEFS = updatedb tarafından işleme sokulmayacak olan dosya sistemlerinin isimleri buradadır. 
+
+Bu bilgilerden sonra, locate komutuna şimdi biraz göz atalım. 
+
+Locate komutu nasıl çalışır ? 
+
+locate komutu, aranacak dosyayı sistemde canlı olarak arama yerine, dosyaları bu veritabanında arar. Dolayısıyla dosyayı bulması çok hızlı ve kolay olur.
+Örnek kullanım: locate filename
+
+Bunun dezavantajı: sisteme yeni bir dosya eklenir ve sistemde " updatedb " komutu çalıştırılmaz ve bu yeni dosya veritabanına kaydedilmezse, locate 
+komutu bu dosyayı ne yazık ki bulamayacaktır. Dolayısılya, locate komutunun sıkıntısız bir şekilde çalışabilmesi için
+bu veritabanın sürekli olarak güncel kalması gerekir.
+
+Örnek yapmak için bir adet dosya oluşturun ve locate komutu ile bu dosyayı bulmaya çalışın. Dosyayı bulamayacaksınız. Sonrasında
+" sudo updatedb " komutunu çalıştırın ve ardından yeniden locate komutu ile bu dosyayı arayın. Dosyanın bulunduğunu 
+göreceksiniz. 
+İyi günler Türkiye! 

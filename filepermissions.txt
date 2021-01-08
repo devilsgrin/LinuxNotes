@@ -1,0 +1,16 @@
+Aşağıya not olarak Linux'da ki dosya izinlierinin, numaralarını bırakıyorum.
+
+r = 4
+w = 2
+x = 1
+
+Dosyanın sahibi bütün izinlere sahip olsun, gruptakiler sadece okuyabilsin ve yazabilsin, other ise
+sadece okusun dersek aşağıdaki şekilde olacaktır.
+
+Dosya sahibi : 7 (4+2+1 = r+w+x)
+Groups = 6 (4+2=r+w)
+Other = 4 (r)
+
+chmod 764 filename 
+
+Bu şekilde basit toplama işlemleri ile dosya sahipliklerini ayarlayabiliriz.
