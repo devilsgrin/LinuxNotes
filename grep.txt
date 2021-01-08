@@ -1,0 +1,6 @@
+Aşağıda " grep " komutunun parametreleri ve bazı örneklerini bulacaksın.
+
+-i -> Büyük küçük harfleri görmezden gel. ( case-insensetive ) (option - OPTION -> Fark yok)
+-r -> Her dizinin altındaki tüm dosyaları " recursive " oku.
+-v -> Verilen kelime hariç bütün hepsini göster
+-l -> Verilen bir kelimeyi geçen tüm dosyaları ara, lakin kelimeyi gösterme sadece dosya adını göster
