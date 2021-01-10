@@ -1,0 +1,40 @@
+2 gündür virtualbox'da kali linux'u çalıştırmak için uğraşıyorum,
+bir türlü becerememiştima ama sonunda hallettim.
+
+Vbox'u açıp Kali'yi çalıştırdığımda kernel error alıyordum ve 
+hata mesajında "sudo modprobe vboxdrv" komutunu çalıştırdığında error
+aldığını söylüyordu. 
+Error code: "modprobe: FATAL: Module vboxdrv not found in directory /lib/modules/5.0.0-23-generic" 
+
+Bilgisayaradan vbox ile alakalı bütün paketleri kaldırdım, sildim, geri yükledim, her şeyi denedim
+ama olmadı. Ta ki vbox kendi offical sitesinden .deb paketini indirene kadar ... 
+Orada da hata aldım, dpkg -i paket ismi ile kurulumu yaptım ama apt-get install ile aldığım hatanın aynısını
+alıyordum: 
+Error code: " Errors were encountered while processing:virtualbox-dkms "
+
+Gelelim çözümeee: 
+
+a-)" sudo apt purge virtualbox"  komutu ile bütün bağımlılıklarıyla beraber vbox'u bilgisayarınızdan kaldırın.
+
+b-) " https://www.virtualbox.org/wiki/Linux_Downloads " bu linkteki debian based kısmındaki bütün adımları izleyin.
+
+c-) En sonunda " sudo apt-get install virtualbox " yapmak yerine, .deb paketini siteden indirin.,
+
+d-) dpkg -i <paketadı> ile kurun, kurulurken hata mesajında şununla karşılacaksınız: 
+" dpkg: dependency problems prevent configuration of virtualbox-6.1:
+ virtualbox-6.1 depends on libqt5opengl5 (>= 5.0.2); however:
+  Package libqt5opengl5 is not installed.
+ virtualbox-6.1 depends on libqt5printsupport5 (>= 5.0.2); however:
+  Package libqt5printsupport5 is not installed.
+" 
+
+Mesajı okuduğunuz da hatanın nereden kaynaklandığını gayet iyi anlıyorsunuz zaten. 
+
+e-) sudo apt install libqt5opengl5 
+
+f-) sudo apt --fix-broken install
+
+g-) Sonrasında .deb paketini yeniden "dpkg -i <paketadı>" ile kurun. 
+
+Hiç bir hata almazsanız, sorun düzelmiştir.
+Teşekkürler Türkiye !
