@@ -1,0 +1,8 @@
+Her konuda olduğu gibi, sed'de çok uzun bir konu.
+Ama diğerlerine göre bir tık daha zor olduğu için, 
+çalışırken buraya yazmak yerine, ilk önce kaynak bırakmakü
+istedim. Bu kaynağı zaman içerisinde bitirerek, notlarımı yeniden
+buraya yazacağım. 
+
+Kaynak: https://www.gnu.org/software/sed/manual/sed.html#sed-addresses (offical tutorial of sed)
+Kaynak: https://www.howtogeek.com/666395/how-to-use-the-sed-command-on-linux/ (examples with sed)
