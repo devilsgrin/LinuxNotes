@@ -1,0 +1,21 @@
+Bu yazıda ssh-key ile bağlandığınız bir sunucuda, yeni bir user
+oluşturduğunuz zaman nasıl o usere de yeni bir ssh key verebile-
+ceğinizden bahsedeceğim.
+
+Benim yöntemim şu şekilde:
+
+a-) İlk öncelikle ssh-key ile giriş yapabildiğimiz kullanıcıyla
+sunucumuza giriş yapıyoruz.
+
+b-) "su - user" diyerekten yeni useremize geçiyoruz.
+
+c-) $HOME dizinine gelerek, "mkdir -p .ssh && touch .ssh/authorized_keys"
+komutunu vererek ".ssh" dizini oluşturuyor, altında da keyimizi tanıyacak
+olan "authorized_keys" adındaki dosyamızı oluşturuyoruz.
+
+d-) Keyimizin bulunduğu bilgisayara dönüyoruz ve
+" cat ~/.ssh/id-rsa.pub | ssh user@server "cat >> /home/user/.ssh/authorized_keys "
+komutunu çalıştırıyoruz. Bu şekilde hem servere auth olmuş olacağız, hem de 
+okuduğumuz public keyimizi "authorized_keys" dosyasına kaydetmiş olacağız.
+
+Bu şekilde yeni userimize ssh keyimizi tanıtarak onun üzerinden giriş yapabiliriz. 
