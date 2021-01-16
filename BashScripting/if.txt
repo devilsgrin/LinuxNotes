@@ -1,0 +1,91 @@
+Bu yazıda bash dilindeki if yapısından ve if komutunun 
+tüm parametrelerinden bahsedeceğim.
+
+Örnek kullanım:
+
+#!/bin/bash
+
+DAY="Monday"
+
+if [ $DAY = "Monday" ]; then
+    echo "Today:" $DAY
+elif [ $DAY == "Tuesday" ]; then
+    echo "Today:" "Tuesday"
+else
+    echo "Day:" "I don't know really, what today from days"
+fi
+
+Burada dikkat edilmesi noktalardan birisi; [] içindeki koşulun,
+kapalı parantezlere yapışık olmaması. Koşulun başlangıcı ya da
+sonu, kapalı paranteze değerse, syntax error alınır.
+ 
+Bunun yanında, her durumda [] parantez kullanmak zorunda değilsiniz.
+Dümdüz bir kullanım da yapabilirsiniz.
+
+"=" ile "==" arasındaki dişe dokunur bir fark yok ama, "==" kullanılması,
+posix açısından daha uyumludur ama aman allah'da bir fark yok yani.
+
+Aşağıdaki örnekte, iç içe if koşullarının kullanımını gösterdim:
+
+#!/bin/bash
+
+NUMBER=2
+REAL_NUMBER=3
+
+if [ $NUMBER -eq 2 ]; then
+    if [ $NUMBER -lt 5 ]; then
+	echo "Your Real Number:" $REAL_NUMBER
+    fi
+elif [ $NUMBER == 8 ]; then
+    echo "Your Real Number:" $REAL_NUMBER
+else
+    echo "No number"
+fi
+
+Burada "-eq" "-lt" gibi özel operatörlere takılmayın, bunların
+"cheeat sheat"ini yazının en sonunda vereceğim. 
+
+Dikkat edilmesi gereken nokta; ilk "if"in içindeki, "if"den sonra
+"fi" komutunun gelmesidir. Yoksa syntax error verecektir. 
+İlk "if"i ve sonrasındaki koşulları kapsayan ( ikinci "if" harici )
+"fi" komutu, en sondadır. Bunlara dikkat ederseniz rahat edersiniz ;)
+
+Örnekler çoğaltılabilir, şimdilik gerek görmüyorum. Şimdi aşağıya,
+"if" içinde kullanabileceğiniz bütün operatörleri şutluyorum.
+
+------------------------------------------------------------------------
+
+-a DOSYA [Dosya varsa, True döner ]
+-e DOSYA [Dosya varsa, True döner ]
+-f DOSYA [Dosya varsa ve bu dosya "regular file" ise, True döner]
+-b DOSYA [Dosya varsa ve bu dosya "block-special file" ise, True döner ]
+-c DOSYA [Dosya varsa ve bu dosya "character-specia"]
+-d DOSYA [Dosya varsa ve bu dosya bir klasörse, True döner ]
+-g DOSYA [Dosya varsa ve SGID biti ayarlanmışsa, True döner ]
+-h DOSYA [Dosya varsa ve "symbolic link" ise, True döner ]
+-L DOSYA [Dosya varsa ve "symbolic link" ise, True döner ]
+-k DOSYA [Dosya varsa ve "sticky bit" ayarlanmışsa, True döner ]
+-p DOSYA [Dosya varsa ve adlandırılmış "pipe" ise (FIFO), True döner ]
+-r DOSYA [Dosya varsa ve okunabilir ise, True döner ]
+-w DOSYA [Dosya varsa ve yazılabilir ise, True döner ]
+-x DOSYA [Dosya varsa ve yürütülebilir ise, True döner ]
+-s DOSYA [Dosya varsa ve büyüklüğü sıfırdan büyükse, True döner ]
+-u DOSYA [Dosya varsa ve User ID biti (SUID) ayarlanmışsa, True döner ]
+-O DOSYA [Dosya varsa ve etkili "effective" User ID'sine sahipse, True döner ]
+-G DOSYA [Dosya varsa ve etkili "effective" Group ID'sine sahipse, True döner ]
+-N DOSYA [Dosya varsa ve son okunduğundan sonra değiştirildiyse, True döner ]
+-S DOSYA [Dosya varsa ve bir soketse "socket", True döner ]
+-t FD [Dosya tanımlayıcısı "FD" açıksa ve bir terminale başvuruyorsa, True döner]
+
+FILE1 -nt FILE2 [FILE1, FILE2'den daha yakın zamanda değiştirilmişse ya da FILE1 varsa ve FILE2 yoksa, True döner ]
+FILE1 -ot FILE2 [FILE1, FILE2'den daha eskiyse ya da FILE2 varsa ve FILE1 yoksa, True döner ]
+
+-o OPTIONNAME [ Shell opsiyonu "OPTINNAME" aktif edilmişse, True döner ]
+-z STRING ["STRING" uzunluğu sıfıra eşitse, True döner ]
+-n STRING ["STRING" uzunluğu sıfıra eşit değilse, True döner ]
+
+STRING1 == STRING2 ["STRING1", "STRING2"ye eşitse, True döner. Bunun yerine "="de kullanılabilir. "==" katı "Posix compliance" açısından, tercih sebebidir ]
+STRING1 != STRING2 ["STRING1", "STRING2"ye eşit değilse, True döner ]
+STRING1 < STRING2 ["STRING1", "STRING2"den, sözlükbilimsel olarak daha önce geliyorsa, True döner ]
+STRING1 > STRING2 ["STRING1", "STRING2"den, sözlükbilimsel olarak daha sonra geliyorsa, True döner ]
+
